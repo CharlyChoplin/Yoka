@@ -13,11 +13,6 @@ export default function Item(props) {
         .then((responseJson) => {
           if (responseJson.status == 1) {
             setProduct(responseJson);
-
-            console.log(
-              "responseJson : " + responseJson + " product : " + product
-            );
-            addToStorage();
           } else {
             throw new Error("Code bar invalide");
           }
@@ -57,7 +52,6 @@ export default function Item(props) {
       } catch (error) {
         console.log(error);
       }
-      console.log("j'suis dans laaddd baby");
     }
   }
 
@@ -65,7 +59,10 @@ export default function Item(props) {
     if (product == null && props.route.params.new == true) {
       getData(props.route.params.code);
     }
-  }, []);
+    if (product !== null) {
+      addToStorage();
+    }
+  }, [product]);
 
   return (
     <View>
